@@ -5,10 +5,16 @@ pipeline {
   }
   stages {
           stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
+      steps {
+    script {
+        def mvn = tool 'Default Maven'
+                }
+    withSonarQubeEnv(installationName: 'SonarQube') {
+        script {
       sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=opqdemo"
         }
       }
     }
   }
+  }
+}
