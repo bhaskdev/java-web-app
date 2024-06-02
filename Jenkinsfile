@@ -7,7 +7,7 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'SonarQube') { 
-          sh './mvnw clean org.sonarsource.scanner.sonar:sonar'
+          sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=opqdemo"
         }
       }
     }
